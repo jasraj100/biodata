@@ -14,10 +14,7 @@
     --gold-dark: #9a7630;
     --deep: #0d0a1a;
     --deep2: #160f2a;
-    --maroon: #6b1c35;
-    --maroon2: #8b2040;
     --cream: #fdf8f0;
-    --cream2: #f5ede0;
     --white: #ffffff;
   }
 
@@ -30,7 +27,6 @@
     overflow-x: hidden;
   }
 
-  /* === CANVAS BG === */
   #bg-canvas {
     position: fixed;
     top: 0; left: 0;
@@ -178,7 +174,6 @@
   .scroll-cta a:hover { color: var(--deep); }
   .scroll-cta a:hover::before { transform: scaleX(1); }
 
-  /* === FLOATING 3D GEMS === */
   .gem {
     position: absolute;
     width: 14px; height: 14px;
@@ -225,7 +220,7 @@
     margin-bottom: 3rem;
   }
 
-  /* === ABOUT CARDS === */
+  /* === INFO CARDS === */
   .about-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -263,11 +258,7 @@
   }
   .info-card:hover::before { opacity: 1; }
 
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 0.8rem;
-    display: block;
-  }
+  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
 
   .card-label {
     font-family: 'Cinzel', serif;
@@ -285,7 +276,59 @@
     font-weight: 300;
   }
 
-  /* === PHOTO GALLERY === */
+  /* === FAMILY SECTION === */
+  .family-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .family-card {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+
+  .family-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(201,168,76,0.6);
+  }
+
+  .family-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .family-card:hover::after { opacity: 1; }
+
+  .family-relation {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .family-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: var(--cream);
+  }
+
+  .family-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+
+  /* === GALLERY === */
   .gallery-section {
     background: rgba(201,168,76,0.03);
     border-top: 1px solid rgba(201,168,76,0.1);
@@ -303,7 +346,6 @@
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
     padding: 1rem 3rem;
     border-radius: 50px;
-    text-decoration: none;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -316,10 +358,10 @@
 
   .gallery-preview {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-top: 2.5rem;
-    max-width: 600px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -333,31 +375,12 @@
     position: relative;
     transition: transform 0.4s ease;
     background: rgba(201,168,76,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .gallery-thumb:hover { transform: scale(1.04); }
+  .gallery-thumb:hover { transform: scale(1.05); }
   .gallery-thumb img {
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
-  }
-  .gallery-thumb .placeholder-icon {
-    font-size: 2rem;
-    opacity: 0.3;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-  }
-  .gallery-thumb .placeholder-icon span {
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    opacity: 0.6;
   }
   .thumb-overlay {
     position: absolute;
@@ -368,7 +391,6 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s;
-    border-radius: 12px;
     font-family: 'Cinzel', serif;
     font-size: 0.6rem;
     letter-spacing: 0.2em;
@@ -381,12 +403,12 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(5, 3, 12, 0.95);
+    background: rgba(5,3,12,0.96);
     z-index: 1000;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
   }
   .modal-backdrop.open { display: flex; }
 
@@ -429,53 +451,15 @@
     border-radius: 12px;
     background: rgba(201,168,76,0.07);
     border: 1px solid rgba(201,168,76,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    cursor: pointer;
-    transition: transform 0.3s;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
     position: relative;
   }
   .modal-photo:hover { transform: scale(1.03); border-color: var(--gold); }
-  .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .modal-photo .add-label {
-    position: absolute;
-    bottom: 0.8rem;
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    opacity: 0.7;
-  }
+  .modal-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* === QUALITIES SECTION === */
-  .qualities-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  .quality-tag {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-style: italic;
-    padding: 0.5rem 1.5rem;
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 50px;
-    color: var(--cream);
-    background: rgba(201,168,76,0.05);
-    transition: all 0.3s;
-  }
-  .quality-tag:hover {
-    background: rgba(201,168,76,0.12);
-    border-color: var(--gold);
-    transform: translateY(-2px);
-  }
-
-  /* === FAMILY / CONTACT === */
+  /* === CONTACT === */
   .contact-box {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(201,168,76,0.2);
@@ -522,11 +506,10 @@
     font-size: 0.95rem;
   }
 
-  /* === 3D CUBE DECORATION === */
+  /* === 3D CUBES === */
   .cube-scene {
     position: absolute;
-    right: 5%;
-    top: 20%;
+    right: 5%; top: 20%;
     width: 80px; height: 80px;
     perspective: 400px;
     z-index: 1;
@@ -552,8 +535,7 @@
 
   .cube-scene2 {
     position: absolute;
-    left: 4%;
-    bottom: 25%;
+    left: 4%; bottom: 25%;
     width: 50px; height: 50px;
     perspective: 300px;
     z-index: 1;
@@ -582,18 +564,13 @@
   }
   @keyframes floatGem {
     0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(-18px); }
+    50%       { transform: rotate(45deg) translateY(-18px); }
   }
   @keyframes rotateCube {
     from { transform: rotateX(20deg) rotateY(0deg); }
     to   { transform: rotateX(20deg) rotateY(360deg); }
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
 
-  /* === SCROLL REVEAL === */
   .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -607,12 +584,12 @@
   @media (max-width: 600px) {
     .cube-scene, .cube-scene2 { display: none; }
     .gallery-preview { grid-template-columns: repeat(2, 1fr); }
+    .family-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- Particle Background -->
 <canvas id="bg-canvas"></canvas>
 
 <!-- ===== HERO ===== -->
@@ -620,7 +597,6 @@
   <div class="hero-overlay"></div>
   <div class="mandala-ring"></div>
 
-  <!-- 3D Cubes -->
   <div class="cube-scene">
     <div class="cube">
       <div class="cube-face face-front"></div>
@@ -642,7 +618,6 @@
     </div>
   </div>
 
-  <!-- Floating Gems -->
   <div class="gem"></div>
   <div class="gem"></div>
   <div class="gem"></div>
@@ -650,30 +625,27 @@
   <div class="gem"></div>
 
   <div class="hero-content">
-    <p class="ornament">✦ &nbsp; Biodata &nbsp; ✦</p>
+    <p class="ornament">✦ &nbsp; Marriage Biodata &nbsp; ✦</p>
     <h1 class="hero-name">
       Jasraj<span>Choudhary</span>
     </h1>
     <p class="hero-tagline">Bengaluru &nbsp;·&nbsp; B.Tech CSE &nbsp;·&nbsp; Class of 2025</p>
-
     <div class="divider">
       <div class="divider-line"></div>
       <div class="divider-diamond"></div>
       <div class="divider-line right"></div>
     </div>
-
     <div class="scroll-cta">
       <a href="#about">Discover More ↓</a>
     </div>
   </div>
 </section>
 
-<!-- ===== ABOUT ===== -->
+<!-- ===== PERSONAL DETAILS ===== -->
 <section class="section" id="about">
   <div class="section-inner">
     <span class="section-label reveal">✦ Personal Details</span>
     <h2 class="section-title reveal">A Glimpse Into My Life</h2>
-
     <div class="about-grid">
       <div class="info-card reveal">
         <span class="card-icon">👤</span>
@@ -703,31 +675,33 @@
       <div class="info-card reveal">
         <span class="card-icon">💼</span>
         <div class="card-label">Profession</div>
-        <div class="card-value">Cyber security Professional</div>
+        <div class="card-value">Cybersecurity Professional</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== QUALITIES ===== -->
-<!-- <section class="section" style="padding-top: 0;">
+<!-- ===== FAMILY DETAILS ===== -->
+<section class="section" style="padding-top: 0;" id="family">
   <div class="section-inner">
-    <span class="section-label reveal">✦ Character</span>
-    <h2 class="section-title reveal">What Defines Me</h2>
-    <div class="qualities-list reveal">
-      <div class="quality-tag">Ambitious & Driven</div>
-      <div class="quality-tag">Family Oriented</div>
-      <div class="quality-tag">Respectful</div>
-      <div class="quality-tag">Caring & Supportive</div>
-      <div class="quality-tag">Intellectually Curious</div>
-      <div class="quality-tag">Loyal</div>
-      <div class="quality-tag">Adventurous</div>
-      <div class="quality-tag">Tech Enthusiast</div>
+    <span class="section-label reveal">✦ Family</span>
+    <h2 class="section-title reveal">My Roots & Family</h2>
+    <div class="family-grid">
+      <div class="family-card reveal">
+        <span class="family-icon">👨</span>
+        <div class="family-relation">Father</div>
+        <div class="family-name">Kamal Choudhary</div>
+      </div>
+      <div class="family-card reveal">
+        <span class="family-icon">👩</span>
+        <div class="family-relation">Mother</div>
+        <div class="family-name">Kavita Choudhary</div>
+      </div>
     </div>
   </div>
-</section> -->
+</section>
 
-<!-- ===== PHOTOS ===== -->
+<!-- ===== PHOTO GALLERY ===== -->
 <section class="section gallery-section" id="photos">
   <div class="section-inner">
     <span class="section-label reveal">✦ Gallery</span>
@@ -735,25 +709,46 @@
 
     <div class="reveal" style="text-align:center;">
       <button class="gallery-btn" onclick="openModal()">🖼️ &nbsp; View All Photos</button>
-      <p style="margin-top:1rem; font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(253,248,240,0.4); font-size:0.95rem;">One click to explore the gallery</p>
+      <p style="margin-top:1rem; font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(253,248,240,0.4); font-size:0.95rem;">One click to explore the full gallery</p>
     </div>
 
-     <div class="gallery-thumb" onclick="openModal()">
-    <img src="j/j1.jpeg" alt="Photo 1">
-    <div class="thumb-overlay">View</div>
-    </div>
+    <!-- 4 preview thumbnails -->
+    <div class="gallery-preview reveal">
       <div class="gallery-thumb" onclick="openModal()">
-    <img src="j/j2.jpeg" alt="Photo 1">
-    <div class="thumb-overlay">View</div>
-    </div>
-     <div class="gallery-thumb" onclick="openModal()">
-    <img src="j/j3.jpeg" alt="Photo 1">
-    <div class="thumb-overlay">View</div>
-    </div>
-     <div class="gallery-thumb" onclick="openModal()">
-    <img src="j/j4.jpeg" alt="Photo 1">
-    <div class="thumb-overlay">View</div>
-    </div>
+        <img src="j/j1.jpeg" alt="Jasraj Photo 1">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j2.jpeg" alt="Jasraj Photo 2">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j3.jpeg" alt="Jasraj Photo 3">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j4.jpeg" alt="Jasraj Photo 4">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j5.jpeg" alt="Jasraj Photo 5">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j6.jpeg" alt="Jasraj Photo 6">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j7.jpeg" alt="Jasraj Photo 7">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j8.jpeg" alt="Jasraj Photo 8">
+        <div class="thumb-overlay">View</div>
+      </div>
+      <div class="gallery-thumb" onclick="openModal()">
+        <img src="j/j9.jpeg" alt="Jasraj Photo 9">
+        <div class="thumb-overlay">View</div>
       </div>
     </div>
   </div>
@@ -790,16 +785,20 @@
   <button class="modal-close" onclick="closeModal()">✕</button>
   <p class="modal-title">✦ &nbsp; JASRAJ CHOUDHARY — PHOTO GALLERY &nbsp; ✦</p>
   <div class="modal-grid">
-  <div class="modal-photo"><img src="j/j1.jpeg" alt="Photo 1"></div>
-  <div class="modal-photo"><img src="j/j2.jpeg" alt="Photo 2"></div>
-  <div class="modal-photo"><img src="j/j3.jpeg" alt="Photo 3"></div>
-  <div class="modal-photo"><img src="j/j4.jpeg" alt="Photo 4"></div>
+    <div class="modal-photo"><img src="j/j1.jpeg" alt="Photo 1"></div>
+    <div class="modal-photo"><img src="j/j2.jpeg" alt="Photo 2"></div>
+    <div class="modal-photo"><img src="j/j3.jpeg" alt="Photo 3"></div>
+    <div class="modal-photo"><img src="j/j4.jpeg" alt="Photo 4"></div>
+    <div class="modal-photo"><img src="j/j5.jpeg" alt="Photo 5"></div>
+    <div class="modal-photo"><img src="j/j6.jpeg" alt="Photo 6"></div>
+    <div class="modal-photo"><img src="j/j7.jpeg" alt="Photo 7"></div>
+    <div class="modal-photo"><img src="j/j8.jpeg" alt="Photo 8"></div>
+    <div class="modal-photo"><img src="j/j9.jpeg" alt="Photo 9"></div>
   </div>
-  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(201,168,76,0.4);margin-top:2rem;font-size:0.9rem;">Replace placeholder slots with your own photos in the HTML file</p>
 </div>
 
 <script>
-/* === PARTICLE CANVAS === */
+/* PARTICLE BG */
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -838,7 +837,7 @@ function drawParticles() {
 }
 drawParticles();
 
-/* === SCROLL REVEAL === */
+/* SCROLL REVEAL */
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
@@ -849,7 +848,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
 
-/* === MODAL === */
+/* MODAL */
 function openModal() {
   document.getElementById('photoModal').classList.add('open');
   document.body.style.overflow = 'hidden';
