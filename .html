@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasraj Choudhary — Biodata</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #9a7630;
+    --deep: #0d0a1a;
+    --deep2: #160f2a;
+    --maroon: #6b1c35;
+    --maroon2: #8b2040;
+    --cream: #fdf8f0;
+    --cream2: #f5ede0;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* === CANVAS BG === */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(13,10,26,0.3) 0%, rgba(13,10,26,0.85) 70%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+  }
+
+  .mandala-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+    animation: rotateSlow 40s linear infinite;
+    z-index: 1;
+  }
+  .mandala-ring::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.1);
+    animation: rotateSlow 30s linear infinite reverse;
+  }
+  .mandala-ring::after {
+    content: '';
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    border: 1px dashed rgba(201,168,76,0.12);
+  }
+
+  .ornament {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1.2s ease both 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 60px rgba(201,168,76,0.3);
+    animation: fadeUp 1.2s ease both 0.4s;
+  }
+
+  .hero-name span {
+    display: block;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: rgba(253,248,240,0.75);
+    margin-top: 1rem;
+    animation: fadeUp 1.2s ease both 0.6s;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.8rem auto;
+    animation: fadeUp 1.2s ease both 0.8s;
+  }
+  .divider-line {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .divider-line.right { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider-diamond {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  .scroll-cta {
+    margin-top: 2.5rem;
+    animation: fadeUp 1.2s ease both 1s;
+  }
+  .scroll-cta a {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 0.8rem 2.5rem;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-cta a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .scroll-cta a:hover { color: var(--deep); }
+  .scroll-cta a:hover::before { transform: scaleX(1); }
+
+  /* === FLOATING 3D GEMS === */
+  .gem {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.4;
+    animation: floatGem 6s ease-in-out infinite;
+  }
+  .gem:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+  .gem:nth-child(2) { top: 25%; right: 12%; animation-delay: 1.5s; width: 8px; height: 8px; }
+  .gem:nth-child(3) { bottom: 20%; left: 8%; animation-delay: 3s; width: 10px; height: 10px; }
+  .gem:nth-child(4) { bottom: 30%; right: 10%; animation-delay: 0.8s; }
+  .gem:nth-child(5) { top: 60%; left: 20%; animation-delay: 2s; width: 6px; height: 6px; }
+
+  /* === SECTIONS === */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 20px;
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-align: center;
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 300;
+    text-align: center;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 3rem;
+  }
+
+  /* === ABOUT CARDS === */
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+
+  .info-card:hover {
+    transform: translateY(-8px) rotateX(4deg);
+    border-color: rgba(201,168,76,0.6);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .info-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .card-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--cream);
+    font-weight: 300;
+  }
+
+  /* === PHOTO GALLERY === */
+  .gallery-section {
+    background: rgba(201,168,76,0.03);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .gallery-btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--deep);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(201,168,76,0.3);
+  }
+  .gallery-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(201,168,76,0.5);
+  }
+
+  .gallery-preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery-thumb {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.2);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.4s ease;
+    background: rgba(201,168,76,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-thumb:hover { transform: scale(1.04); }
+  .gallery-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .gallery-thumb .placeholder-icon {
+    font-size: 2rem;
+    opacity: 0.3;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+  .gallery-thumb .placeholder-icon span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+  .thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13,10,26,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+  .gallery-thumb:hover .thumb-overlay { opacity: 1; }
+
+  /* === MODAL === */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 3, 12, 0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    backdrop-filter: blur(12px);
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal-close {
+    position: fixed;
+    top: 2rem; right: 2rem;
+    font-size: 2rem;
+    color: var(--gold);
+    cursor: pointer;
+    background: none;
+    border: none;
+    z-index: 1010;
+    line-height: 1;
+    transition: transform 0.3s;
+  }
+  .modal-close:hover { transform: rotate(90deg); }
+
+  .modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    width: 90%;
+    max-width: 900px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  .modal-photo {
+    aspect-ratio: 3/4;
+    border-radius: 12px;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+    overflow: hidden;
+    position: relative;
+  }
+  .modal-photo:hover { transform: scale(1.03); border-color: var(--gold); }
+  .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-photo .add-label {
+    position: absolute;
+    bottom: 0.8rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* === QUALITIES SECTION === */
+  .qualities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .quality-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50px;
+    color: var(--cream);
+    background: rgba(201,168,76,0.05);
+    transition: all 0.3s;
+  }
+  .quality-tag:hover {
+    background: rgba(201,168,76,0.12);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* === FAMILY / CONTACT === */
+  .contact-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-box::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.3), transparent, rgba(201,168,76,0.1));
+    z-index: -1;
+  }
+  .contact-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .contact-detail {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: rgba(253,248,240,0.7);
+    margin-bottom: 0.3rem;
+  }
+
+  /* === FOOTER === */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 1rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: rgba(253,248,240,0.35);
+    font-size: 0.95rem;
+  }
+
+  /* === 3D CUBE DECORATION === */
+  .cube-scene {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    width: 80px; height: 80px;
+    perspective: 400px;
+    z-index: 1;
+  }
+  .cube {
+    width: 80px; height: 80px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 12s linear infinite;
+  }
+  .cube-face {
+    position: absolute;
+    width: 80px; height: 80px;
+    border: 1px solid rgba(201,168,76,0.25);
+    background: rgba(201,168,76,0.03);
+  }
+  .face-front  { transform: rotateY(  0deg) translateZ(40px); }
+  .face-back   { transform: rotateY(180deg) translateZ(40px); }
+  .face-right  { transform: rotateY( 90deg) translateZ(40px); }
+  .face-left   { transform: rotateY(-90deg) translateZ(40px); }
+  .face-top    { transform: rotateX( 90deg) translateZ(40px); }
+  .face-bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+  .cube-scene2 {
+    position: absolute;
+    left: 4%;
+    bottom: 25%;
+    width: 50px; height: 50px;
+    perspective: 300px;
+    z-index: 1;
+  }
+  .cube2 {
+    width: 50px; height: 50px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 18s linear infinite reverse;
+  }
+  .cube2 .cube-face { width: 50px; height: 50px; }
+  .cube2 .face-front  { transform: rotateY(  0deg) translateZ(25px); }
+  .cube2 .face-back   { transform: rotateY(180deg) translateZ(25px); }
+  .cube2 .face-right  { transform: rotateY( 90deg) translateZ(25px); }
+  .cube2 .face-left   { transform: rotateY(-90deg) translateZ(25px); }
+  .cube2 .face-top    { transform: rotateX( 90deg) translateZ(25px); }
+  .cube2 .face-bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rotateSlow {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  @keyframes floatGem {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(-18px); }
+  }
+  @keyframes rotateCube {
+    from { transform: rotateX(20deg) rotateY(0deg); }
+    to   { transform: rotateX(20deg) rotateY(360deg); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* === SCROLL REVEAL === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .cube-scene, .cube-scene2 { display: none; }
+    .gallery-preview { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="mandala-ring"></div>
+
+  <!-- 3D Cubes -->
+  <div class="cube-scene">
+    <div class="cube">
+      <div class="cube-face face-front"></div>
+      <div class="cube-face face-back"></div>
+      <div class="cube-face face-right"></div>
+      <div class="cube-face face-left"></div>
+      <div class="cube-face face-top"></div>
+      <div class="cube-face face-bottom"></div>
+    </div>
+  </div>
+  <div class="cube-scene2">
+    <div class="cube2">
+      <div class="cube-face face-front"></div>
+      <div class="cube-face face-back"></div>
+      <div class="cube-face face-right"></div>
+      <div class="cube-face face-left"></div>
+      <div class="cube-face face-top"></div>
+      <div class="cube-face face-bottom"></div>
+    </div>
+  </div>
+
+  <!-- Floating Gems -->
+  <div class="gem"></div>
+  <div class="gem"></div>
+  <div class="gem"></div>
+  <div class="gem"></div>
+  <div class="gem"></div>
+
+  <div class="hero-content">
+    <p class="ornament">✦ &nbsp; Biodata &nbsp; ✦</p>
+    <h1 class="hero-name">
+      Jasraj<span>Choudhary</span>
+    </h1>
+    <p class="hero-tagline">Bengaluru &nbsp;·&nbsp; B.Tech CSE &nbsp;·&nbsp; Class of 2025</p>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line right"></div>
+    </div>
+
+    <div class="scroll-cta">
+      <a href="#about">Discover More ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <span class="section-label reveal">✦ Personal Details</span>
+    <h2 class="section-title reveal">A Glimpse Into My Life</h2>
+
+    <div class="about-grid">
+      <div class="info-card reveal">
+        <span class="card-icon">👤</span>
+        <div class="card-label">Full Name</div>
+        <div class="card-value">Jasraj Choudhary</div>
+      </div>
+      <div class="info-card reveal">
+        <span class="card-icon">🎂</span>
+        <div class="card-label">Age</div>
+        <div class="card-value">22 Years</div>
+      </div>
+      <div class="info-card reveal">
+        <span class="card-icon">📏</span>
+        <div class="card-label">Height</div>
+        <div class="card-value">5 ft 11 in</div>
+      </div>
+      <div class="info-card reveal">
+        <span class="card-icon">🎓</span>
+        <div class="card-label">Education</div>
+        <div class="card-value">B.Tech — CSE</div>
+      </div>
+      <div class="info-card reveal">
+        <span class="card-icon">📍</span>
+        <div class="card-label">Currently Based In</div>
+        <div class="card-value">Bengaluru</div>
+      </div>
+      <div class="info-card reveal">
+        <span class="card-icon">💼</span>
+        <div class="card-label">Profession</div>
+        <div class="card-value">Cyber security Professional</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUALITIES ===== -->
+<!-- <section class="section" style="padding-top: 0;">
+  <div class="section-inner">
+    <span class="section-label reveal">✦ Character</span>
+    <h2 class="section-title reveal">What Defines Me</h2>
+    <div class="qualities-list reveal">
+      <div class="quality-tag">Ambitious & Driven</div>
+      <div class="quality-tag">Family Oriented</div>
+      <div class="quality-tag">Respectful</div>
+      <div class="quality-tag">Caring & Supportive</div>
+      <div class="quality-tag">Intellectually Curious</div>
+      <div class="quality-tag">Loyal</div>
+      <div class="quality-tag">Adventurous</div>
+      <div class="quality-tag">Tech Enthusiast</div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ===== PHOTOS ===== -->
+<section class="section gallery-section" id="photos">
+  <div class="section-inner">
+    <span class="section-label reveal">✦ Gallery</span>
+    <h2 class="section-title reveal">Moments & Memories</h2>
+
+    <div class="reveal" style="text-align:center;">
+      <button class="gallery-btn" onclick="openModal()">🖼️ &nbsp; View All Photos</button>
+      <p style="margin-top:1rem; font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(253,248,240,0.4); font-size:0.95rem;">One click to explore the gallery</p>
+    </div>
+
+     <div class="gallery-thumb" onclick="openModal()">
+    <img src="j/j1.jpeg" alt="Photo 1">
+    <div class="thumb-overlay">View</div>
+    </div>
+      <div class="gallery-thumb" onclick="openModal()">
+    <img src="j/j2.jpeg" alt="Photo 1">
+    <div class="thumb-overlay">View</div>
+    </div>
+     <div class="gallery-thumb" onclick="openModal()">
+    <img src="j/j3.jpeg" alt="Photo 1">
+    <div class="thumb-overlay">View</div>
+    </div>
+     <div class="gallery-thumb" onclick="openModal()">
+    <img src="j/j4.jpeg" alt="Photo 1">
+    <div class="thumb-overlay">View</div>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <span class="section-label reveal">✦ Get In Touch</span>
+    <h2 class="section-title reveal">Reach Out</h2>
+    <div class="contact-box reveal">
+      <div class="contact-name">Jasraj Choudhary</div>
+      <div class="contact-detail">📍 Bengaluru, Karnataka</div>
+      <div class="contact-detail">🎓 B.Tech in Computer Science</div>
+      <div class="contact-detail" style="margin-top:1.5rem; font-size:0.8rem; letter-spacing:0.2em; font-family:'Cinzel',serif; color:rgba(201,168,76,0.6);">CONTACT DETAILS</div>
+      <div class="contact-detail" style="margin-top:0.5rem;">✉️ &nbsp; jasrajchoudhary314@gmail.com</div>
+      <div class="contact-detail">📞 &nbsp; +91 99813 23225</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="divider" style="margin-bottom:1.5rem;">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line right"></div>
+  </div>
+  <p>✦ &nbsp; Security is a process, not a product. &nbsp; ✦</p>
+</footer>
+
+<!-- ===== PHOTO MODAL ===== -->
+<div class="modal-backdrop" id="photoModal" onclick="closeModalOutside(event)">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <p class="modal-title">✦ &nbsp; JASRAJ CHOUDHARY — PHOTO GALLERY &nbsp; ✦</p>
+  <div class="modal-grid">
+    <div class="modal-photo"><img src="j/j1.jpeg" alt="Photo 1"></div>
+    <div class="modal-photo"><img src="j/j2.jpeg" alt="Photo 2"></div>
+    <div class="modal-photo"><img src="j/j3.jpeg" alt="Photo 1"></div>
+    <div class="modal-photo"><img src="j/j4.jpeg" alt="Photo 2"></div>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(201,168,76,0.4);margin-top:2rem;font-size:0.9rem;">Replace placeholder slots with your own photos in the HTML file</p>
+</div>
+
+<script>
+/* === PARTICLE CANVAS === */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.5 + 0.3,
+    alpha: Math.random() * 0.5 + 0.1,
+    speed: Math.random() * 0.3 + 0.05,
+    dx: (Math.random() - 0.5) * 0.3
+  });
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,168,76,${p.alpha})`;
+    ctx.fill();
+    p.y -= p.speed;
+    p.x += p.dx;
+    if (p.y < -5) { p.y = canvas.height + 5; p.x = Math.random() * canvas.width; }
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+/* === SCROLL REVEAL === */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+/* === MODAL === */
+function openModal() {
+  document.getElementById('photoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('photoModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('photoModal')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
